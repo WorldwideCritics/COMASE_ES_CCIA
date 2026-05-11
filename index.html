@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COMASE — Comercializadora Aeromarítima y de Servicios</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --deep-navy: #0A1628;
+            --steel-blue: #1B3A6B;
+            --gold-accent: #C9A84C;
+            --sky-blue: #2E86C1;
+            --white: #FFFFFF;
+            --light-gray: #B0BEC5;
+            --dark-overlay: rgba(10, 22, 40, 0.85);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--deep-navy);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-number {
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 0.02em;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--deep-navy);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold-accent);
+            border-radius: 4px;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 22, 40, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 0.7rem 5%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .nav-logo-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 2px solid var(--gold-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--steel-blue);
+            color: var(--gold-accent);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-logo-text {
+            color: var(--white);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 0.08em;
+        }
+
+        .nav-logo-text span {
+            display: block;
+            font-size: 0.65rem;
+            font-weight: 400;
+            color: var(--gold-accent);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold-accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold-accent);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--gold-accent);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--deep-navy);
+            overflow: hidden;
+            padding: 120px 5% 80px;
+        }
+
+        .hero-bg-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(201, 168, 76, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(201, 168, 76, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--gold-accent);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 900px;
+        }
+
+        .hero-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid var(--gold-accent);
+            background: var(--steel-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            box-shadow: 0 0 40px rgba(201, 168, 76, 0.2);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 40px rgba(201, 168, 76, 0.2); }
+            50% { box-shadow: 0 0 60px rgba(201, 168, 76, 0.4); }
+        }
+
+        .hero-avatar span {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 2rem;
+            color: var(--gold-accent);
+            letter-spacing: 0.05em;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            color: var(--white);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .hero-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            font-weight: 400;
+            color: var(--light-gray);
+            margin-bottom: 1rem;
+            letter-spacing: 0.1em;
+        }
+
+        .hero-tagline {
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            color: var(--gold-accent);
+            font-weight: 300;
+            margin-bottom: 3rem;
+            font-style: italic;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background: var(--gold-accent);
+            color: var(--deep-navy);
+            border-color: var(--gold-accent);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--gold-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(201, 168, 76, 0.2);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border-color: var(--gold-accent);
+        }
+
+        .btn-outline:hover {
+            background: var(--gold-accent);
+            color: var(--deep-navy);
+            transform: translateY(-2px);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        .scroll-indicator i {
+            color: var(--gold-accent);
+            font-size: 1.5rem;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 100px 5%;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            color: var(--gold-accent);
+            margin-bottom: 1rem;
+        }
+
+        .section-divider {
+            width: 80px;
+            height: 2px;
+            background: var(--gold-accent);
+            margin: 0 auto;
+        }
+
+        .section-subtitle {
+            color: var(--light-gray);
+            font-size: 1rem;
+            margin-top: 1rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* About Section */
+        .about {
+            background: var(--steel-blue);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-text {
+            color: var(--light-gray);
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .about-text strong {
+            color: var(--gold-accent);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: rgba(10, 22, 40, 0.5);
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: var(--gold-accent);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            color: var(--gold-accent);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--light-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Services Section */
+        .services {
+            background: var(--deep-navy);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: var(--steel-blue);
+            border: 1px solid rgba(201, 168, 76, 0.15);
+            border-radius: 8px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gold-accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold-accent);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(201, 168, 76, 0.1);
+            border: 1px solid var(--gold-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            color: var(--gold-accent);
+        }
+
+        .service-card h3 {
+            color: var(--white);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: var(--light-gray);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Alliance Section */
+        .alliance {
+            background: var(--steel-blue);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .alliance-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .alliance-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(10, 22, 40, 0.6);
+            border: 1px solid var(--gold-accent);
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .alliance-badge i {
+            color: var(--gold-accent);
+            font-size: 1.5rem;
+        }
+
+        .alliance-badge span {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--gold-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .alliance-text {
+            font-size: 1.1rem;
+            color: var(--light-gray);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .alliance-text strong {
+            color: var(--white);
+        }
+
+        .license-tags {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .license-tag {
+            background: rgba(201, 168, 76, 0.1);
+            border: 1px solid var(--gold-accent);
+            color: var(--gold-accent);
+            padding: 0.5rem 1.2rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--deep-navy);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .contact-info h3 {
+            color: var(--gold-accent);
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            color: var(--light-gray);
+        }
+
+        .contact-item i {
+            color: var(--gold-accent);
+            font-size: 1.2rem;
+            margin-top: 0.2rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        .contact-item strong {
+            color: var(--white);
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .contact-item a {
+            color: var(--sky-blue);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: var(--gold-accent);
+        }
+
+        .contact-form {
+            background: var(--steel-blue);
+            padding: 2.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(201, 168, 76, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--light-gray);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: rgba(10, 22, 40, 0.5);
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            border-radius: 4px;
+            color: var(--white);
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold-accent);
+            box-shadow: 0 0 10px rgba(201, 168, 76, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(10, 22, 40, 0.98);
+            border-top: 1px solid rgba(201, 168, 76, 0.2);
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--gold-accent);
+            margin-bottom: 1rem;
+            letter-spacing: 0.1em;
+        }
+
+        .footer-text {
+            color: var(--light-gray);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .footer-social a {
+            color: var(--light-gray);
+            font-size: 1.3rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            color: var(--gold-accent);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(201, 168, 76, 0.1);
+            padding-top: 1.5rem;
+            color: var(--light-gray);
+            font-size: 0.8rem;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .license-tags {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .section {
+                padding: 60px 5%;
+            }
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(10, 22, 40, 0.98);
+            z-index: 999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            color: var(--white);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--gold-accent);
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: none;
+            border: none;
+            color: var(--gold-accent);
+            font-size: 2rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <a href="#hero" class="nav-logo">
+            <div class="nav-logo-avatar">CO</div>
+            <div class="nav-logo-text">
+                COMASE
+                <span>Comercializadora Aeromarítima</span>
+            </div>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#about">Quiénes Somos</a></li>
+            <li><a href="#services">Servicios</a></li>
+            <li><a href="#alliance">Alianza</a></li>
+            <li><a href="#contact">Contacto</a></li>
+        </ul>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" onclick="toggleMobileMenu()">
+            <i class="fas fa-times"></i>
+        </button>
+        <a href="#about" onclick="toggleMobileMenu()">Quiénes Somos</a>
+        <a href="#services" onclick="toggleMobileMenu()">Servicios</a>
+        <a href="#alliance" onclick="toggleMobileMenu()">Alianza</a>
+        <a href="#contact" onclick="toggleMobileMenu()">Contacto</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-bg-grid"></div>
+        <div class="hero-particles" id="particles"></div>
+        <div class="hero-content">
+            <div class="hero-avatar">
+                <span>EG</span>
+            </div>
+            <h1>COMASE</h1>
+            <p class="hero-subtitle">Comercializadora Aeromarítima y de Servicios</p>
+            <p class="hero-tagline">"Tu puerta de entrada a la Zona Libre de Colón"</p>
+            <div class="hero-cta">
+                <a href="#services" class="btn btn-primary">
+                    <i class="fas fa-chevron-down"></i>
+                    Conoce Nuestros Servicios
+                </a>
+                <a href="#contact" class="btn btn-outline">
+                    <i class="fas fa-envelope"></i>
+                    Contáctanos
+                </a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="section-header fade-in">
+            <h2>Quiénes Somos</h2>
+            <div class="section-divider"></div>
+            <p class="section-subtitle">Expertos en comercio internacional y logística</p>
+        </div>
+        <div class="about-grid">
+            <div class="about-text fade-in">
+                <p>
+                    <strong>COMASE</strong> es una intermediaria comercial cubana y facilitadora de negocios especializada en operaciones basadas en la <strong>Zona Libre de Colón (ZLC)</strong>. Con raíces profundas en el ecosistema logístico más importante de América Latina, ofrecemos un puente estratégico entre proveedores globales y mercados regionales.
+                </p>
+                <p>
+                    Nuestra operativa se fundamenta en el conocimiento detallado de los procedimientos aduaneros, la normativa de comercio exterior y las dinámicas del comercio cubano generado desde la ZLC, permitiendo a nuestros clientes optimizar tiempos, reducir costos operativos y garantizar el cumplimiento regulatorio en cada transacción.
+                </p>
+                <p>
+                    Dirigida por <strong>Elio Edel Gibert Quintana</strong>, Director Comercial y Socio Fundador, COMASE combina experiencia sectorial con una red de contactos sólida para ejecutar operaciones complejas de importación, exportación y distribución con precisión y confiabilidad.
+                </p>
+            </div>
+            <div class="stats-grid fade-in">
+                <div class="stat-card">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Años de Experiencia</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">ZLC</div>
+                    <div class="stat-label">Hub Estratégico</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">Categorías de Licencia</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Operaciones</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section services" id="services">
+        <div class="section-header fade-in">
+            <h2>Nuestros Servicios</h2>
+            <div class="section-divider"></div>
+            <p class="section-subtitle">Soluciones integrales de comercio exterior y logística internacional así como en el mercado cubano</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-ship"></i>
+                </div>
+                <h3>Intermediación Comercial</h3>
+                <p>Facilitamos la conexión entre compradores y vendedores internacionales, gestionando negociaciones, contratos y condiciones comerciales óptimas para ambas partes desde la Zona Libre de Colón.</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-warehouse"></i>
+                </div>
+                <h3>Operaciones ZLC</h3>
+                <p>Ejecutamos operaciones de compra, venta, almacenamiento y distribución bajo el régimen de la Zona Libre de Colón, aprovechando beneficios fiscales y logísticos exclusivos.</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-file-contract"></i>
+                </div>
+                <h3>Gestión Aduanera</h3>
+                <p>Tramitamos documentación de importación/exportación, clasificación arancelaria, permisos especiales y cumplimiento normativo ante las autoridades panameñas.</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-boxes-stacked"></i>
+                </div>
+                <h3>Logística de Distribución</h3>
+                <p>Coordinamos transporte terrestre, marítimo y aéreo para el movimiento eficiente de mercancías desde Panamá hacia Centroamérica, el Caribe y Sudamérica.</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h3>Representación Comercial</h3>
+                <p>Actuamos como representantes oficiales de marcas y fabricantes internacionales, gestionando su presencia comercial y distribución en mercados latinoamericanos.</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Consultoría de Comercio</h3>
+                <p>Asesoramos en estrategias de entrada a mercados, análisis de viabilidad, optimización de cadenas de suministro y estructuración de operaciones de comercio exterior.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Alliance Section -->
+    <section class="section alliance" id="alliance">
+        <div class="section-header fade-in">
+            <h2>Alianza Estratégica</h2>
+            <div class="section-divider"></div>
+        </div>
+        <div class="alliance-content fade-in">
+            <div class="alliance-badge">
+                <i class="fas fa-shield-halved"></i>
+                <span>Alianza Comercial Formal</span>
+            </div>
+            <p class="alliance-text">
+                COMASE opera en <strong>alianza comercial formal con </strong>CIBO S.A.</strong>, empresa proveedora interncional con un excelente catálogo de productos, </strong>ILA S.A.</strong>, empresa naviera con sede en Panamá y rutas que cubren el gran Caribe, </strong>DIJO AEROMARITIME S.A.</strong>, empresa usuaria de la Zona Libre de Colón con <strong>Licencia de Operación Zolicol 8972</strong> y registro <strong>MINCEX PA-1678</strong>, y otras empresas internacionales de distintas latitudes del mundo.
+            </p>
+            <p class="alliance-text">
+                Esta alianza nos confiere acceso conjunto a una gran variedad de productos y servicios logísticos de cargs marítima, así como a una <strong>licencia multi-categoría de la ZLC</strong> que abarca mercancía general, licores, cigarrillos y productos farmacéuticos — un conjunto de ventajas competitivas estructurales cuya obtención independiente requiere generalmente entre <strong>12 y 24 meses</strong> de tramitación.
+            </p>
+            <div class="license-tags">
+                <span class="license-tag"><i class="fas fa-box"></i> Mercancía General</span>
+                <span class="license-tag"><i class="fas fa-wine-bottle"></i> Licores</span>
+                <span class="license-tag"><i class="fas fa-smoking"></i> Cigarrillos</span>
+                <span class="license-tag"><i class="fas fa-pills"></i> Farmacéuticos</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="section-header fade-in">
+            <h2>Contacto</h2>
+            <div class="section-divider"></div>
+            <p class="section-subtitle">Conecta con nuestro equipo comercial</p>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-info fade-in">
+                <h3>Información de Contacto</h3>
+                
+                <div class="contact-item">
+                    <i class="fas fa-building"></i>
+                    <div>
+                        <strong>Empresa</strong>
+                        COMASE — Comercializadora Aeromarítima y de Servicios
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <i class="fas fa-user-tie"></i>
+                    <div>
+                        <strong>Director Comercial</strong>
+                        Elio Edel Gibert Quintana<br>
+                        <span style="font-size: 0.9rem; color: var(--gold-accent);">Socio Fundador</span>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <i class="fas fa-location-dot"></i>
+                    <div>
+                        <strong>Ubicación</strong>
+                        Calle Céspedes No 435, 
+                        entre Amado Estévez y Coronel Montero, 
+                        Reparto El Cristo<br>
+                        Bayamo, Granma<br>
+                        República de Cuba
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <strong>Teléfono</strong>
+                        <a href="#">+53 2342-3424</a>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <strong>Correo Electrónico</strong>
+                        <a href="mailto:comase49@gmail.com">comase49@gmail.com</a>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <i class="fab fa-linkedin"></i>
+                    <div>
+                        <strong>LinkedIn</strong>
+                        <a href="#">[PLACEHOLDER — por definir]</a>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <i class="fas fa-handshake"></i>
+                    <div>
+                        <strong>Alianza Operativa</strong>
+                        CIBO S.A.<br>
+                        Variado catálogo de productos internacionales<br><br>
+                        ILA S.A.<br>
+                        Empresa naviera con sede en Panamá<br><br>
+                        DIJO AEROMARITIME S.A.<br>
+                        Lic. Zolicol 8972 | MINCEX PA-1678<br><br>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form fade-in">
+                <form onsubmit="event.preventDefault(); alert('Formulario de contacto — Funcionalidad pendiente de configuración.');">
+                    <div class="form-group">
+                        <label for="name">Nombre Completo</label>
+                        <input type="text" id="name" name="name" placeholder="Tu nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Correo Electrónico</label>
+                        <input type="email" id="email" name="email" placeholder="tu@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="company">Empresa</label>
+                        <input type="text" id="company" name="company" placeholder="Nombre de tu empresa">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mensaje</label>
+                        <textarea id="message" name="message" placeholder="¿En qué podemos ayudarte?" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                        <i class="fas fa-paper-plane"></i>
+                        Enviar Mensaje
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">COMASE</div>
+        <p class="footer-text">Comercializadora Aeromarítima y de Servicios — Zona Libre de Colón, Panamá</p>
+        <div class="footer-social">
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            <a href="#" aria-label="Teléfono"><i class="fas fa-phone"></i></a>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 COMASE. Todos los derechos reservados. | República de Cuba</p>
+            <p style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--light-gray);">
+                Operando en alianza con CIBO S.A., ILA S.A., Twuenty Minutes S.A., SINO-UNION Inc. y DIJO AEROMARITIME S.A.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        // Generate particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+            particle.style.width = (2 + Math.random() * 4) + 'px';
+            particle.style.height = particle.style.width;
+            particlesContainer.appendChild(particle);
+        }
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
